@@ -55,10 +55,10 @@ loglevel 3
 
     # Directory-target for where the secure container
     # imagefile directory will be bind-mounted
-    mkdir /mnt/secure/asec  0700 root root
+    mkdir /mnt/secure/asec 0700 root root
 
     # Secure container public mount points.
-    mkdir /mnt/asec  0700 root system
+    mkdir /mnt/asec 0700 root system
     mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
 
     # Filesystem image public mount points.
@@ -69,7 +69,7 @@ loglevel 3
     mkdir /mnt/usb 0700 root system
     mount tmpfs tmpfs /mnt/usb mode=0755,gid=1000
 
-    #  Browser app memory cache.
+    # Browser app memory cache.
     mkdir /app-cache 0770 system inet
     mount tmpfs tmpfs /app-cache size=8M
 
@@ -217,25 +217,25 @@ on post-fs
     chown media system /data/data/.drm/.playready
     chmod 0775 /data/data/.drm/.playready
     mkdir /data/data/.drm/.wmdrm 0775
-    chown media system /data/data/.drm/.wmdrm 
-    chmod 0775 /data/data/.drm/.wmdrm 
+    chown media system /data/data/.drm/.wmdrm
+    chmod 0775 /data/data/.drm/.wmdrm
 
 
     # Permission for WMDRM sample.hds file
-    # chmod 0777  /data/data/.drm/.wmdrm/sample.hds
+    # chmod 0777 /data/data/.drm/.wmdrm/sample.hds
 
 #SISO-PLAYREADY-CHANGES
 
 
 # DRM directory creation
-    # DivX DRM	
+    # DivX DRM
     mkdir /data/data/.files 0777
     mkdir /data/data/.files/.dx1 0777
     mkdir /data/data/.files/.dm33 0777
     mkdir /data/data/.files/.mp301 0777
-	
+
 #Added for MTP permission
-    chmod 0660 /dev/usb_mtp_gadget 
+    chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
 
 on boot
@@ -248,7 +248,7 @@ on boot
     setrlimit 13 40 40
 
 # Define the oom_adj values for the classes of processes that can be
-# killed by the kernel.  These are used in ActivityManagerService.
+# killed by the kernel. These are used in ActivityManagerService.
     setprop ro.FOREGROUND_APP_ADJ 0
     setprop ro.VISIBLE_APP_ADJ 1
     setprop ro.PERCEPTIBLE_APP_ADJ 2
@@ -260,7 +260,7 @@ on boot
     setprop ro.EMPTY_APP_ADJ 15
 
 # Define the memory thresholds at which the above process classes will
-# be killed.  These numbers are in pages (4k).
+# be killed. These numbers are in pages (4k).
     setprop ro.FOREGROUND_APP_MEM 2048
     setprop ro.VISIBLE_APP_MEM 3072
     setprop ro.PERCEPTIBLE_APP_MEM 4096
@@ -286,7 +286,7 @@ on boot
 
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  5
+    write /proc/sys/vm/dirty_background_ratio 5
 
     # Permissions for System Server and daemons.
     chown radio system /sys/android_power/state
@@ -328,12 +328,12 @@ on boot
     chown root radio /proc/cmdline
 
 # Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+# ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    4095,131072,196608,4096,16384,110208
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.wifi 4095,131072,196608,4096,16384,110208
+    setprop net.tcp.buffersize.umts 4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.edge 4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs 4092,8760,11680,4096,8760,11680
 
     class_start default
 
@@ -360,10 +360,10 @@ on property:ro.kernel.qemu=1
     start adbd
 
 #on property:persist.service.adb.enable=1
-#    start adbd
+# start adbd
 
 #on property:persist.service.adb.enable=0
-#    stop adbd
+# stop adbd
 
 service servicemanager /system/bin/servicemanager
     user system
