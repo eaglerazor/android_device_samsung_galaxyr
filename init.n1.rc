@@ -11,7 +11,7 @@ on early-init
 
 on fs
     # SEC_DMCRYPT move mounting efs before mounting data and apply_disk_policy
-    # mount EFS partition    
+    # mount EFS partition
     exec check_filesystem /dev/block/mmcblk0p1 ext4
     mount ext4 /dev/block/mmcblk0p1 /efs nosuid nodev noatime wait
     chown radio system /efs
@@ -23,9 +23,9 @@ on fs
 
     mount ext4 /dev/block/mmcblk0p2 /system wait ro
 
-    # SEC_DMCRYPT mount with crypt option    
+    # SEC_DMCRYPT mount with crypt option
     exec check_filesystem /dev/block/mmcblk0p6 ext4
-    mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc    
+    mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc
     mount ext4 /dev/block/mmcblk0p3 /cache nosuid nodev noatime wait
     
 
@@ -35,7 +35,7 @@ on fs
     #chmod 0775 /efs
     #chmod 0775 /efs/bluetooth
 
-    #add booting sound property 
+    #add booting sound property
     setprop audioflinger.bootsnd 1
     
 on boot
@@ -154,23 +154,23 @@ on boot
     chmod 666 /dev/nvhost-vi
 
 # Power management settings
-#    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 216000
-#    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
-#    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-#    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 216000
-#    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1000000
-#    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
-#    write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
+# write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 216000
+# write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
+# write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+# write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 216000
+# write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1000000
+# write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+# write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
     
 # permissions for MTP device node_temporary permission_will be changed 0660
 chmod 0666 /dev/usb_mtp_gadget
 
 # permissions for USB Accessory device(ADK) node_temporary permission_will be changed 0660
-	chown root usb /dev/usb_accessory
-	chmod 0660 /dev/usb_accessory
-	
-	chown root system /sys/devices/virtual/usb_composite/accessory/enable
-	chmod 0664 /sys/devices/virtual/usb_composite/accessory/enable
+chown root usb /dev/usb_accessory
+chmod 0660 /dev/usb_accessory
+
+chown root system /sys/devices/virtual/usb_composite/accessory/enable
+chmod 0664 /sys/devices/virtual/usb_composite/accessory/enable
 
 # ko files for FM Radio
     insmod /lib/modules/Si4709_driver.ko
@@ -190,12 +190,12 @@ chmod 0666 /dev/usb_mtp_gadget
     mkdir /data/mrd/almc/adabip 0744
     chown radio radio /data/mrd/almc/adabip/
     chmod 0744 /data/mrd/almc/adabip/
-	# Added for Playready DRM Support
+# Added for Playready DRM Support
     mkdir /data/data/.drm 0775
-	chown media system /data/data/.drm
+chown media system /data/data/.drm
     chmod 0775 /data/data/.drm
-	mkdir /data/data/.drm/.playready 0775
-	chown media system /data/data/.drm/.playready
+mkdir /data/data/.drm/.playready 0775
+chown media system /data/data/.drm/.playready
     chmod 0775 /data/data/.drm/.playready
 # Added for DIVX DRM
     mkdir /efs/.files 0775
@@ -225,14 +225,14 @@ chmod 0666 /dev/usb_mtp_gadget
     chmod 0664 /sys/class/host_notify/usb_otg/booster
 
 # disable_vbus
-	chown system radio /sys/devices/platform/android_usb/disable_vbus		
-    chmod 0664 /sys/devices/platform/android_usb/disable_vbus		
+chown system radio /sys/devices/platform/android_usb/disable_vbus
+    chmod 0664 /sys/devices/platform/android_usb/disable_vbus
 
 # battery
     chown system radio /sys/class/power_supply/battery/batt_reset_soc
 
-# UsbMenuSel ownership change - for setting.	
-	chown system radio /sys/devices/platform/android_usb/UsbMenuSel	
+# UsbMenuSel ownership change - for setting.
+chown system radio /sys/devices/platform/android_usb/UsbMenuSel
 
 # Debug_Level
     chown system radio /sys/devices/platform/sec_debug_level
@@ -259,10 +259,10 @@ service immvibed /system/bin/immvibed_n1
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dwext -ieth0 -c/data/wifi/bcm_supp.conf
-#   we will start as root and wpa_supplicant will switch to user wifi
-#   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
+# we will start as root and wpa_supplicant will switch to user wifi
+# after setting up the capabilities required for WEXT
+# user wifi
+# group wifi inet keystore
     class main
     socket wpa_eth0 dgram 0660 wifi wifi
     disabled
@@ -319,11 +319,11 @@ on property:service.brcm.bt.soft_onoff=0
 
 
 service mtpd /system/bin/mtpd
-	socket mtpd stream 600 system system
-	user vpn
-	group vpn net_admin net_raw
-	disabled
-	oneshot
+socket mtpd stream 600 system system
+user vpn
+group vpn net_admin net_raw
+disabled
+oneshot
   
 service ril-daemon /system/bin/rild
     socket rild stream 660 root radio
@@ -333,25 +333,25 @@ service ril-daemon /system/bin/rild
     
 service DR-deamon /system/bin/drexe
     user root
-    group system radio inet net_raw  
+    group system radio inet net_raw
 
 service mobex-daemon /system/bin/npsmobex
     user system
-    group system inet         
+    group system inet
 
 # Samsung USB Mode : system properties are linked with sysfs
 # write /sys/class/sec/switch/UsbMenuSel 0
 on property:persist.service.usb.setting=0
-	write /sys/devices/platform/android_usb/UsbMenuSel 0
+write /sys/devices/platform/android_usb/UsbMenuSel 0
 on property:persist.service.usb.setting=1
-	write /sys/devices/platform/android_usb/UsbMenuSel 1
+write /sys/devices/platform/android_usb/UsbMenuSel 1
 on property:persist.service.usb.setting=2
-	write /sys/devices/platform/android_usb/UsbMenuSel 2
+write /sys/devices/platform/android_usb/UsbMenuSel 2
 on property:persist.service.usb.setting=3
-	write /sys/devices/platform/android_usb/UsbMenuSel 3
+write /sys/devices/platform/android_usb/UsbMenuSel 3
 on property:persist.service.usb.setting=4
-	write /sys/devices/platform/android_usb/UsbMenuSel 4
-	
+write /sys/devices/platform/android_usb/UsbMenuSel 4
+
 # Power management settings
 on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 216000
@@ -361,7 +361,7 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1000000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
-	
+
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
     disabled
@@ -386,16 +386,16 @@ service bt_dut_cmd /system/bin/bcm_dut
 on property:encryption.bootmode=remount
 
     stop mobex-daemon
-    stop DR-deamon  
+    stop DR-deamon
     stop media
     stop immvibed
     stop zygote
     # do not add here, "on property" tag area
     
-	# verfiy filesystem (UMS)
-	#exec apply_system_policy /dev/block/mmcblk0p4 vfat -r 1980
+# verfiy filesystem (UMS)
+#exec apply_system_policy /dev/block/mmcblk0p4 vfat -r 1980
 
-	mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev noatime wait usedm discard,noauto_da_alloc
+mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev noatime wait usedm discard,noauto_da_alloc
     # do not add here, "on property" tag area
     chown system system /data
     chmod 0771 /data
@@ -461,12 +461,12 @@ on property:encryption.bootmode=remount
     chmod 0770 /data/lost+found
     # do not add here, "on property" tag area
     
-# b2b_lab_securitypart_2011.7.10 'reload properties for ODE 
+# b2b_lab_securitypart_2011.7.10 'reload properties for ODE
     exec reload_data_partition_properties
 
     
     start zygote
     start immvibed
     start media
-    start DR-deamon    
+    start DR-deamon
     start mobex-daemon
